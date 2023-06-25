@@ -22,7 +22,7 @@ VALUES (
 
 SELECT * FROM users;
 
-
+-- DELETE FROM users  WHERE id='ec33e4c0-6b60-4182-a156-3dee356b55da' ;
 
 CREATE TABLE
     posts (

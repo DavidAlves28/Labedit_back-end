@@ -9,6 +9,6 @@ export class LikesDislikes {
   }
   // enum type para controlar o estado do like ou dislike
   export enum POST_LIKE {
-    ALREADY_LIKED = "ALREADY LIKED",
-    ALREADY_DISLIKED = "ALREADY DISLIKED"
+    LIKED = "LIKED",
+    DISLIKED = "DISLIKED"
   }
