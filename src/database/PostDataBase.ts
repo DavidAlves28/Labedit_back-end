@@ -66,7 +66,7 @@ public findPostWithCreatorId = async (
 ): Promise<PostDBWithCreatorName | undefined> => {
   const [result] = await BaseDataBase.connection(PostDataBase.TABLE_POSTS)
     .select(
-      `${PostDataBase.TABLE_POSTS}.id `,
+      `${PostDataBase.TABLE_POSTS}.id as post_id `,
       `${PostDataBase.TABLE_POSTS}.creator_id`,
       `${PostDataBase.TABLE_POSTS}.content`,
       `${PostDataBase.TABLE_POSTS}.created_at`,
