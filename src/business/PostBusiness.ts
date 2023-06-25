@@ -125,7 +125,7 @@ export class PostBusiness {
       throw new ForbiddenError("somente quem criou o Post pode editá-lo");
     }
 
-    //estânciar novo post
+    //estância novo post
     const newPost = new Posts(
       postExist.id,
       postExist.content,
