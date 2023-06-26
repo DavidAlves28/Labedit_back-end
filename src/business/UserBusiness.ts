@@ -8,7 +8,7 @@ import { HashManager } from "../services/HashManager";
 import { IdGenerator } from "../services/IdGenerator";
 import { TokenManager, TokenPayload } from "../services/TokenManager";
 
-export class userBusiness {
+export class UserBusiness {
   constructor(
     private userDatabase: UserDataBase,
     private idgenerator: IdGenerator,
