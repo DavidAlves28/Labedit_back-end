@@ -14,7 +14,7 @@ export class PostController {
   constructor(private postBusiness: PostBusiness) {}
 
   // retorna todos os Posts
-  public getAllPosts = async (req: Request, res: Response) => {
+  public getPostsWithCreatorName= async (req: Request, res: Response) => {
     try {
       // receber dados do Front-end
       const input = GetPostSchema.parse({
@@ -22,7 +22,7 @@ export class PostController {
       });
 
       // enviar para Businnes para verificações
-      const output = await this.postBusiness.getAllPosts(input);
+      const output = await this.postBusiness.getPostsWithCreatorName(input);
 
       // resposta para Front-end
       res.status(200).send(output);
