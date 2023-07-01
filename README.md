@@ -29,7 +29,7 @@ https://dbdiagram.io/d/6492227702bd1c4a5eccfff1
 # Testes 
 ![teste-coverage](https://github.com/DavidAlves28/Labedit_back-end/assets/107942209/7a1740e0-49ef-4552-8c8e-c83038e0c016)
 
-
+# Deploy = https://labeddit-backend-pky9.onrender.com
 ## Documentação Postman 
 ### https://documenter.getpostman.com/view/24823167/2s93zCXzfM
 # Lista de requisitos
