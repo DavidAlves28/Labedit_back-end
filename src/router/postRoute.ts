@@ -14,7 +14,7 @@ const postController = new PostController(
     new IdGenerator(),
     new TokenManager())
 );
-postRoute.get("/", postController.getAllPosts);
+postRoute.get("/", postController.getPostsWithCreatorName);
 postRoute.post("/", postController.createPost);
 postRoute.put("/:id", postController.updatePost);
 postRoute.delete("/:id", postController.deletePost);

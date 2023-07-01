@@ -1,9 +1,21 @@
 import { PostDataBase } from "../database/PostDataBase";
-import { LikesDislikesInputDTO, LikesDislikesOutputDTO } from "../dtos/likeDislikes/like-dislikes.dto";
-import { CreatePostInputDTO, CreatePostOutputDTO } from "../dtos/posts/createPost.dto";
-import { DeletePostInputDTO, DeletePostOutputDTO } from "../dtos/posts/deletePost.dto";
+import {
+  LikesDislikesInputDTO,
+  LikesDislikesOutputDTO,
+} from "../dtos/likeDislikes/like-dislikes.dto";
+import {
+  CreatePostInputDTO,
+  CreatePostOutputDTO,
+} from "../dtos/posts/createPost.dto";
+import {
+  DeletePostInputDTO,
+  DeletePostOutputDTO,
+} from "../dtos/posts/deletePost.dto";
 import { GetPostInputDTO, GetPostsOutputDTO } from "../dtos/posts/getPost.dto";
-import { UpdatePostInputDTO, UpdatePostOutputDTO } from "../dtos/posts/update.dto";
+import {
+  UpdatePostInputDTO,
+  UpdatePostOutputDTO,
+} from "../dtos/posts/update.dto";
 import { BadRequestError } from "../errors/BadRequestError";
 import { ForbiddenError } from "../errors/ForbiddenError";
 import { NotFoundError } from "../errors/NotFounError";
@@ -14,7 +26,6 @@ import { USER_ROLES } from "../models/User";
 import { IdGenerator } from "../services/IdGenerator";
 import { TokenManager } from "../services/TokenManager";
 
-
 export class PostBusiness {
   // Injeção de dependências
   constructor(
@@ -24,7 +35,7 @@ export class PostBusiness {
   ) {}
 
   // retornar todos os posts
-  public getAllPosts = async (
+  public getPostsWithCreatorName = async (
     input: GetPostInputDTO
   ): Promise<GetPostsOutputDTO> => {
     // receber dados do Front-end
@@ -72,11 +83,6 @@ export class PostBusiness {
     }
     // gerar id pelo UUID
     const id = this.idGenerator.generate();
-    // verificar se id existe  na DB.
-    const postExist = await this.postDataBase.findPostById(id);
-    if (postExist) {
-      throw new BadRequestError("'id' já existe");
-    }
 
     // estância para novo post
     const newPost = new Posts(
@@ -192,13 +198,12 @@ export class PostBusiness {
     return output;
   };
 
-  
   // endpoint para like e/ou dislike
   public likeDislikePost = async (
     input: LikesDislikesInputDTO
   ): Promise<LikesDislikesOutputDTO> => {
     const { token, like, postId } = input;
-    
+
     // requer token do usuário logado
     const payload = await this.tokenManager.getPayload(token);
 
@@ -236,7 +241,7 @@ export class PostBusiness {
     const LikeDislikesExists = await this.postDataBase.findLikeDislike(
       likeDislikeDB
     );
-  
+
     // se like estiver checked
     if (LikeDislikesExists === POST_LIKE.LIKED) {
       // caso o like for 1 e ser clicado , então remover  o like.

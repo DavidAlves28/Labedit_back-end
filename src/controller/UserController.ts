@@ -1,4 +1,4 @@
-import { userBusiness } from "./../business/UserBusiness";
+import { UserBusiness } from "./../business/UserBusiness";
 import { ZodError } from "zod";
 import { SignupSchema } from "../dtos/user/signup.dto";
 import { Request, Response } from "express";
@@ -6,7 +6,7 @@ import { BaseError } from "../errors/BaseErrror";
 import { LoginSchema } from "../dtos/user/login.dto";
 
 export class UserController {
-  constructor(private userBusiness: userBusiness) {}
+  constructor(private userBusiness: UserBusiness) {}
   // create Account
   public signup = async (req: Request, res: Response) => {
     try {

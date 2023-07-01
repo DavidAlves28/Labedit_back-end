@@ -25,12 +25,7 @@ export class UserBusiness {
     const id = this.idgenerator.generate();
     //gerar hash de password
     const hashPassword = await this.hashManager.hash(password);
-
-    // verifica se o id criado ja existe
-    const userDBExists = await this.userDatabase.findUserById(id);
-    if (userDBExists) {
-      throw new BadRequestError("'id' já existe");
-    }
+   
     // verificar se o email já existe
     const emailExist = await this.userDatabase.findUserByEmail(email);
     if (emailExist) {
@@ -42,7 +37,7 @@ export class UserBusiness {
       name,
       email,
       hashPassword,
-      USER_ROLES.ADMIN, // só é possível criar users com contas normais.
+      USER_ROLES.NORMAL, // só é possível criar users com contas normais.
       new Date().toISOString() // createdAt.
     );
 

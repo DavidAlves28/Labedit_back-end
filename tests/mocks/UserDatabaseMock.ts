@@ -1,5 +1,6 @@
 import { USER_ROLES, UserDB } from "../../src/models/User"
 import {BaseDataBase} from '../../src/database/BaseDataBase'
+import { UserDataBase } from "../../src/database/UserDataBase"
  
 const usersMock: UserDB[] = [
   {
@@ -50,7 +51,8 @@ export class UserDatabaseMock extends BaseDataBase {
 
   public async insertUser(
     newUserDB: UserDB
-  ): Promise<void> {
+  ): Promise<void> {   
+   
 
   }
 }

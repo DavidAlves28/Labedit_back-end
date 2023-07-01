@@ -5,11 +5,11 @@ import { UserDataBase } from "../database/UserDataBase";
 import { IdGenerator } from "../services/IdGenerator";
 import { TokenManager } from "../services/TokenManager";
 import { HashManager } from "../services/HashManager";
-import { userBusiness } from "../business/UserBusiness";
+import { UserBusiness } from "../business/UserBusiness";
 
 export const userRoute = express.Router();
 const userController = new UserController(
-  new userBusiness(new 
+  new UserBusiness(new 
     UserDataBase(),
     new IdGenerator(), 
     new TokenManager(), 
