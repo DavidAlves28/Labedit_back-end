@@ -11,11 +11,7 @@ export interface UpdatedCommentOutputDTO {
     id: string;
     content: string;
     created_at: string;
-    likes: number;
-    creator:{
-     id:string,
-     name: string
-    }
+    likes: number;   
   };
 }
 

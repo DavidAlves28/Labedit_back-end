@@ -1,14 +1,13 @@
 import z from "zod";
 // tipagem de entrada de dados
 export interface LikesDislikesInputDTO {
-  postId: string;
-  commentId:string,
+  postId: string; 
   token: string;
   like: boolean;
 }
-export interface LikesDislikesInputCommentDTO {  
+export interface LikesDislikesInputDTO {  
+  postId:string,
   token: string;
-  commentId:string,
   like: boolean;
 }
 // tipagem de saída de dados para o Fron-end (sem password)

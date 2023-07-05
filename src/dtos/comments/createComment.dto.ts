@@ -13,11 +13,7 @@ export interface CreateCommentOutputDTO {
     id: string;
     content: string;
     created_at: string;
-    likes: number;
-    creator:{
-     id:string,
-     name: string
-    }
+    likes: number;   
   };
 }
 

@@ -6,25 +6,12 @@ import {
   LikesDislikesInputDTO,
   LikesDislikesOutputDTO,
 } from "../dtos/likeDislikes/like-dislikes.dto";
-import {
-  CreatePostInputDTO,
-  CreatePostOutputDTO,
-} from "../dtos/posts/createPost.dto";
-import {
-  DeletePostInputDTO,
-  DeletePostOutputDTO,
-} from "../dtos/posts/deletePost.dto";
 
-import {
-  UpdatePostInputDTO,
-  UpdatePostOutputDTO,
-} from "../dtos/posts/update.dto";
 import { ForbiddenError } from "../errors/ForbiddenError";
 import { NotFoundError } from "../errors/NotFounError";
 import { UnauthorizedError } from "../errors/UnauthorizedError";
 import { CommentPosts } from "../models/CommentPosts";
-import { LikesDislikesDB, POST_LIKE } from "../models/LikeOrDislikes";
-import { Posts } from "../models/Post";
+
 import { USER_ROLES } from "../models/User";
 import { IdGenerator } from "../services/IdGenerator";
 import { TokenManager } from "../services/TokenManager";
@@ -44,6 +31,7 @@ import {
   COMMENT_LIKE,
   LikeOrDislikeCommentDB,
 } from "../models/LikeOrDislikesComments";
+import { LikesDislikesInputCommentDTO, LikesDislikesOutputCommentDTO } from "../dtos/likeDislikes/likeDislikesComment.dto";
 
 export class CommentBusiness {
   // Injeção de dependências
@@ -55,13 +43,13 @@ export class CommentBusiness {
   ) {}
 
   // retornar todos os posts
-  public getAllCommentByPostID = async (
+  public getAllCommentByPostId = async (
     input: GetCommentInputDTO
   ): Promise<GetCommentOutputDTO> => {
     // receber dados do Front-end
-    const { token, idPost } = input;
+    const { token, id_post } = input;
     // requer token do usuário logado
-    const idPostExists = await this.postDataBase.findPostById(idPost);
+    const idPostExists = await this.postDataBase.findPostById(id_post);
 
     if (!idPostExists) {
       throw new NotFoundError("'id_post' não foi encontrado!");
@@ -72,19 +60,17 @@ export class CommentBusiness {
       throw new UnauthorizedError();
     }
     // verificar se id existe  na DB.
-    const commentDB = await this.commentDataBase.getAllCommentByPostID(idPost);
+    const commentDB = await this.commentDataBase.getAllCommentByPostID(id_post);
     // estância para novo comment
     const findComments = commentDB.map((comment) => {
       const comments = new CommentPosts(
         comment.id,
-        comment.idUser,
-        comment.idPost,
+        comment.id_user,
+        comment.id_post,
         comment.content,
-        comment.createdAt,
+        comment.created_at,
         comment.likes,
-        comment.dislikes,
-        comment.creatorId,
-        comment.creatorName
+        comment.dislikes,        
       );
       return comments.toBusinessModel();
     });
@@ -124,8 +110,7 @@ export class CommentBusiness {
       new Date().toLocaleString(), // createdAt
       0, //likes
       0, //dislikes
-      payload.id,
-      payload.name
+     
     );
 
     // criar post
@@ -159,21 +144,19 @@ export class CommentBusiness {
       throw new NotFoundError("'id' não encontrado.");
     }
     // verificar se quem criou o post é o mesmo do login atraves do id e creator_id
-    if (payload.id !== commentExist.creatorId) {
+    if (payload.id !== commentExist.id_user) {
       throw new ForbiddenError("somente quem criou o Comentário pode editá-lo");
     }
 
     //estância novo comment
     const newComment = new CommentPosts(
       commentExist.id,
-      commentExist.idUser,
-      commentExist.idPost,
+      commentExist.id_user,
+      commentExist.id_post,
       commentExist.content,
-      commentExist.createdAt,
+      commentExist.created_at,
       commentExist.likes,
-      commentExist.dislikes,
-      payload.id,
-      payload.name
+      commentExist.dislikes,     
     );
 
     // editar conteúdo
@@ -205,15 +188,15 @@ export class CommentBusiness {
       throw new UnauthorizedError();
     }
     // Buscar post na data base
-    const postExist = await this.commentDataBase.findCommentById(id);
-    if (!postExist) {
+    const commentExists = await this.commentDataBase.findCommentById(id);
+    if (!commentExists) {
       throw new NotFoundError("'id' não encontrado.");
     }
 
     // O ADMIN também poderá deletar o Comentário
     // verificar se quem criou o Comentário é o mesmo do login atraves do id e creator_id
     if (payload.role !== USER_ROLES.ADMIN) {
-      if (payload.id !== postExist.creatorId) {
+      if (payload.id !== commentExists.id_user) {
         throw new ForbiddenError(
           "somente quem criou o Comentário ou administrador pode deleta-lo"
         );
@@ -231,8 +214,8 @@ export class CommentBusiness {
 
   // endpoint para like e/ou dislike
   public likeDislikeComment = async (
-    input: LikesDislikesInputDTO
-  ): Promise<LikesDislikesOutputDTO> => {
+    input: LikesDislikesInputCommentDTO
+  ): Promise<LikesDislikesOutputCommentDTO> => {
     const { token, commentId, like } = input;
 
     // requer token do usuário logado
@@ -250,14 +233,12 @@ export class CommentBusiness {
     //estânciar novo post
     const newComment = new CommentPosts(
       commentExist.id,
-      commentExist.idUser,
-      commentExist.idPost,
+      commentExist.id_user,
+      commentExist.id_post,
       commentExist.content,
-      commentExist.createdAt,
+      commentExist.created_at,
       commentExist.likes,
-      commentExist.dislikes,
-      payload.id,
-      payload.name
+      commentExist.dislikes,     
     );
 
     // verificar se like é True ou False

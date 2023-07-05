@@ -1,14 +1,13 @@
 // type do DataBase
 export interface CommentDB {
   id: string;
-  idUser: string;
-  idPost: string;
+  id_user: string;
+  id_post: string;
   content: string;
-  createdAt: string;
+  created_at: string;
   likes: number;
   dislikes: number;
-  creatorId: string;
-  creatorName: string;
+  
 }
 
 export interface CommentDBWithCreatorName {
@@ -30,12 +29,7 @@ export interface CommentModel {
   content: string;
   created_at: string;
   likes: number;
-  dislikes: number;
-  creator_id: string;
-  creator: {
-    id: string;
-    name: string;
-  };
+  dislikes: number; 
 }
 // classe Post
 export class CommentPosts {
@@ -47,8 +41,7 @@ export class CommentPosts {
     private createdAt: string,
     private likes: number,
     private dislikes: number,
-    private creatorId: string,
-    private creatorName: string
+ 
   ) {}
 
   public getId(): string {
@@ -58,13 +51,6 @@ export class CommentPosts {
     this.id = value;
   }
 
-  public getCreatorId(): string {
-    return this.creatorId;
-  }
-
-  public setCreatorId(value: string): void {
-    this.creatorId = value;
-  }
 
   public getDislikes(): number {
     return this.dislikes;
@@ -113,25 +99,17 @@ export class CommentPosts {
   public setCreatedAt(value: string): void {
     this.createdAt = value;
   }
-  public getCreatorName(): string {
-    return this.creatorName;
-  }
 
-  public setCreatorName(value: string): void {
-    this.creatorName = value;
-  }
   // para facilitar o retorno, geramos um CommentDB
   public toDBModel(): CommentDB {
     return {
       id: this.id,
-      idUser: this.idUser,
-      idPost: this.idPost,
+      id_user: this.idUser,
+      id_post: this.idPost,
       content: this.content,
-      createdAt: this.createdAt,
+      created_at: this.createdAt,
       likes: this.likes,
-      dislikes: this.dislikes,
-      creatorId: this.creatorId,
-      creatorName: this.creatorName,
+      dislikes: this.dislikes,      
     };
   }
 
@@ -145,11 +123,8 @@ export class CommentPosts {
       created_at: this.createdAt,
       likes: this.likes,
       dislikes: this.dislikes,
-      creator_id: this.creatorId,
-      creator: {
-        id: this.creatorId,
-        name: this.creatorName,
-      },
+      
+     
     };
   }
 }

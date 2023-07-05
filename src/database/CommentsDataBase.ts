@@ -10,32 +10,30 @@ import { PostDataBase } from "./PostDataBase";
 export class CommentsDataBase extends BaseDataBase {
   // tabela posts
 
- 
   public static TABLE_COMMENTS = "comment_post";
-  public static TABLE_LIKE_DISLIKE = "likes_dislikes";
+  public static TABLE_LIKE_DISLIKE = "likes_dislikes_comments";
   // retornar todos os comentários relacionados com post.
   public getAllCommentByPostID = async (
-    idPost: string
+    id_post: string
   ): Promise<CommentDB[]> => {
     const result = await BaseDataBase.connection(
       CommentsDataBase.TABLE_COMMENTS
     )
       .select(
-        `${CommentsDataBase.TABLE_COMMENTS}.id `,
-        `${CommentsDataBase.TABLE_COMMENTS}.id_user`,
-        `${CommentsDataBase.TABLE_COMMENTS}.id_post `,
+        `${CommentsDataBase.TABLE_COMMENTS}.id  `,
         `${CommentsDataBase.TABLE_COMMENTS}.content`,
         `${CommentsDataBase.TABLE_COMMENTS}.created_at`,
+
         `${CommentsDataBase.TABLE_COMMENTS}.likes`,
         `${CommentsDataBase.TABLE_COMMENTS}.dislikes`,
-        `${PostDataBase}.id as postId`
+        `${PostDataBase.TABLE_POSTS}.id AS postId`
       )
-      .leftJoin(
+      .join(
         `${PostDataBase.TABLE_POSTS}`,
         `${CommentsDataBase.TABLE_COMMENTS}.id_post`,
         "=",
-        `${PostDataBase.TABLE_POSTS}.id `
-      )
+        `${PostDataBase.TABLE_POSTS}.id`
+      );
 
     return result;
   };

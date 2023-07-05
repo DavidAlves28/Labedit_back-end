@@ -1,33 +1,29 @@
 import { Request, Response } from "express";
-import { PostBusiness } from "../business/PostBusiness";
-import { GetPostSchema } from "../dtos/posts/getPost.dto";
 import { ZodError } from "zod";
 import { BaseError } from "../errors/BaseErrror";
-import { CreatePostSchema } from "../dtos/posts/createPost.dto";
-import { UpdaterPostSchema } from "../dtos/posts/update.dto";
-import { DeletePostSchema } from "../dtos/posts/deletePost.dto";
-import { LikeDislikePSchema } from "../dtos/likeDislikes/like-dislikes.dto";
 import { GetCommentSchema } from "../dtos/comments/getAllComments.dto";
 import { CommentBusiness } from "../business/CommentBusiness";
 import { CreateCommentScheme } from "../dtos/comments/createComment.dto";
 import { UpdateCommentScheme } from "../dtos/comments/updateComment.dto";
 import { DeleteCommentScheme } from "../dtos/comments/deleteComment.dto";
+import { LikeDislikeCommentPSchema } from "../dtos/likeDislikes/likeDislikesComment.dto";
+
 
 export class CommentController {
   // Injeção de dependência postBusiness
   constructor(private commentBusiness: CommentBusiness) {}
 
   // retorna todos os Posts
-  public getAllCommentByPostID = async (req: Request, res: Response) => {
+  public getAllCommentByPostId = async (req: Request, res: Response) => {
     try {
       // receber dados do Front-end
       const input = GetCommentSchema.parse({
         token: req.headers.authorization,
-        idPost: req.params.id,
+        id_post: req.params.id,
       });
 
       // enviar para Businnes para verificações
-      const output = await this.commentBusiness.getAllCommentByPostID(input);
+      const output = await this.commentBusiness.getAllCommentByPostId(input);
 
       // resposta para Front-end
       res.status(200).send(output);
@@ -74,12 +70,12 @@ export class CommentController {
     try {
       // receber dados do Front-end
       const input = UpdateCommentScheme.parse({
-        idPostToEdit: req.params.id,
+        id: req.params.id,
         token: req.headers.authorization,
         content: req.body.content,
       });
       // enviar para Businnes para verificações
-      const output = await this.commentBusiness.updateComment(input)
+      const output = await this.commentBusiness.updateComment(input);
 
       // resposta para Front-end
       res.status(200).send(output);
@@ -102,11 +98,11 @@ export class CommentController {
       // receber dados do Front-end
       const input = DeleteCommentScheme.parse({
         token: req.headers.authorization,
-        idToDelete: req.params.id,
+        id: req.params.id,
       });
 
       // enviar para Business para verificações
-      const output = await this.commentBusiness.deleteComment(input)
+      const output = await this.commentBusiness.deleteComment(input);
 
       // resposta para Front-end
       res.status(200).send(output);
@@ -127,14 +123,14 @@ export class CommentController {
   public LikeDislikeComment = async (req: Request, res: Response) => {
     try {
       // receber dados do Front-end
-      const input = LikeDislikePSchema.parse({
-        postId: req.params.id,
+      const input = LikeDislikeCommentPSchema.parse({
+        commentId: req.params.id,
         token: req.headers.authorization,
         like: req.body.like,
       });
 
       // enviar para Business para verificações
-      const output = await this.commentBusiness.likeDislikeComment(input)
+      const output = await this.commentBusiness.likeDislikeComment(input);
 
       // resposta para Front-end
       res.status(200).send(output);

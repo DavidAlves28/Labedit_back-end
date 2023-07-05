@@ -12,15 +12,6 @@ CREATE TABLE
         created_at TEXT DEFAULT(DATETIME('now', 'localtime'))
     );
 
-INSERT INTO
-    users (id, name, email, password)
-VALUES (
-        '03',
-        'Testes',
-        'tes2tesdas@gmail.com',
-        '1231223'
-    );
-
 SELECT * FROM users;
 
 -- DELETE FROM users  WHERE id='ec33e4c0-6b60-4182-a156-3dee356b55da' ;
@@ -39,10 +30,6 @@ CREATE TABLE
 
 SELECT * FROM posts;
 
-INSERT INTO
-    posts (id, creator_id, content)
-VALUES ('1', '1', 'testando');
-
 CREATE TABLE
     likes_dislikes (
         user_id TEXT NOT NULL,
@@ -52,14 +39,7 @@ CREATE TABLE
         FOREIGN KEY (post_id) REFERENCES posts(id) ON UPDATE CASCADE ON DELETE CASCADE ON UPDATE CASCADE ON DELETE CASCADE
     );
 
-INSERT INTO likes_dislikes VALUES ('03', '03',0);
-
 SELECT * FROM likes_dislikes;
-
-SELECT *
-FROM users
-    INNER JOIN posts ON users.id = posts.creator_id
-    INNER JOIN likes_dislikes ON users.id = likes_dislikes.user_id;
 
 CREATE TABLE
     comment_post(
@@ -70,24 +50,23 @@ CREATE TABLE
         likes INTEGER DEFAULT(0) NOT NULL,
         dislikes INTEGER DEFAULT(0) NOT NULL,
         created_at TEXT NOT NULL DEFAULT(DATETIME('now', 'localtime')),
-        
-        Foreign Key (id_user) REFERENCES users(id),
-        Foreign Key (id_post) REFERENCES post(id)
+        FOREIGN KEY (id_user) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE ON UPDATE CASCADE ON DELETE CASCADE,
+        FOREIGN KEY (id_post) REFERENCES posts(id) ON UPDATE CASCADE ON DELETE CASCADE ON UPDATE CASCADE ON DELETE CASCADE
     );
 
-DROP TABLE comment_post;
-
-INSERT INTO
-    comment_post (id, id_user, id_post, content)
-VALUES
-(
-        '1',
-        '1',
-        '1',
-        'TESTE COMENTARIO'
-    );
+SELECT * FROM comment_post;
 
 SELECT *
-FROM posts
-    INNER JOIN comment_post ON comment_post.id_post = posts.id
- 
+FROM comment_post
+    INNER JOIN posts ON posts.id = comment_post.id_post;
+
+CREATE TABLE
+    likes_dislikes_comments (
+        id_user TEXT NOT NULL,
+        id_comment TEXT NOT NULL,
+        like INTEGER DEFAULT(0) NOT NULL,
+        FOREIGN KEY (id_user) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE ON UPDATE CASCADE ON DELETE CASCADE,
+        FOREIGN KEY (id_comment) REFERENCES comment_post(id) ON UPDATE CASCADE ON DELETE CASCADE ON UPDATE CASCADE ON DELETE CASCADE
+    );
+
+SELECT * FROM likes_dislikes_comments 

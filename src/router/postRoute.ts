@@ -27,16 +27,17 @@ const commentController = new CommentController(
     )
 
 postRoute.get("/", postController.getPostsWithCreatorName);
-postRoute.get("/:id",commentController.getAllCommentByPostID)
+postRoute.get("/:id",commentController.getAllCommentByPostId)
 
 postRoute.post("/", postController.createPost);
 postRoute.post("/:id/comments",commentController.createComment)
 
 postRoute.put("/:id", postController.updatePost);
-postRoute.put("/:id/comments", commentController.updateComment)
+postRoute.put("/comments/:id", commentController.updateComment)
 
 postRoute.delete("/:id", postController.deletePost);
-postRoute.delete("/:id/comments",postController.deletePost)
+postRoute.delete("/comments/:id", commentController.deleteComment)
 // route para Like e/ou Dislike
 postRoute.put("/:id/like", postController.LikeDislikePost);
+postRoute.put("/comments/:id/like", commentController.LikeDislikeComment);
 
