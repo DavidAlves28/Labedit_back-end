@@ -15,8 +15,7 @@ const userController = new UserController(
     new TokenManager(), 
     new HashManager())
 );
-// endpoint somente ADMIN terá acesso!
-// userRoute.get("/",userController.getUsers);
+
 userRoute.post("/signup", userController.signup);
 userRoute.post("/login", userController.login);
 

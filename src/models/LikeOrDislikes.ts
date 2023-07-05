@@ -12,3 +12,4 @@ export class LikesDislikes {
     LIKED = "LIKED",
     DISLIKED = "DISLIKED"
   }
+ 
