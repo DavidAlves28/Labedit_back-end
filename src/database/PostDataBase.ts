@@ -5,8 +5,8 @@ import { UserDataBase } from "./UserDataBase";
 
 export class PostDataBase extends BaseDataBase {
 // tabela posts
-private static TABLE_POSTS = "posts";
-private static TABLE_LIKE_DISLIKE = "likes_dislikes";
+public static TABLE_POSTS = "posts";
+public static TABLE_LIKE_DISLIKE = "likes_dislikes";
 // retornar todos os posts com id e name do criador.
 public getPostsWithCreatorName = async (): Promise<PostDBWithCreatorName[]> => {
   const result = await BaseDataBase.connection(PostDataBase.TABLE_POSTS)

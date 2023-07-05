@@ -1,7 +1,12 @@
 import z from "zod";
 // tipagem de entrada de dados
 export interface LikesDislikesInputDTO {
-  postId: string;
+  postId: string; 
+  token: string;
+  like: boolean;
+}
+export interface LikesDislikesInputDTO {  
+  postId:string,
   token: string;
   like: boolean;
 }

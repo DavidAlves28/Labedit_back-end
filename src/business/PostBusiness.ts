@@ -16,7 +16,6 @@ import {
   UpdatePostInputDTO,
   UpdatePostOutputDTO,
 } from "../dtos/posts/update.dto";
-import { BadRequestError } from "../errors/BadRequestError";
 import { ForbiddenError } from "../errors/ForbiddenError";
 import { NotFoundError } from "../errors/NotFounError";
 import { UnauthorizedError } from "../errors/UnauthorizedError";

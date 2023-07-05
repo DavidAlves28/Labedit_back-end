@@ -1,4 +1,5 @@
 -- Active: 1685398220002@@127.0.0.1@3306
+
 -- // TABLE de usuarios
 
 CREATE TABLE
@@ -9,15 +10,6 @@ CREATE TABLE
         password TEXT NOT NULL,
         role TEXT CHECK(role IN ('NORMAL', 'ADMIN')) NOT NULL DEFAULT 'NORMAL',
         created_at TEXT DEFAULT(DATETIME('now', 'localtime'))
-    );
-
-INSERT INTO
-    users (id, name, email, password)
-VALUES (
-        '03',
-        'Testes',
-        'tes2tesdas@gmail.com',
-        '1231223'
     );
 
 SELECT * FROM users;
@@ -38,28 +30,43 @@ CREATE TABLE
 
 SELECT * FROM posts;
 
-
-INSERT INTO
-    posts (id, creator_id, content)
-VALUES ('03', '03', 'testando');
-
-
 CREATE TABLE
     likes_dislikes (
         user_id TEXT NOT NULL,
         post_id TEXT NOT NULL,
         like INTEGER DEFAULT(0) NOT NULL,
         FOREIGN KEY (user_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE ON UPDATE CASCADE ON DELETE CASCADE,
-        FOREIGN KEY (post_id) REFERENCES posts(id)
-        ON UPDATE CASCADE ON DELETE CASCADE ON UPDATE CASCADE ON DELETE CASCADE
+        FOREIGN KEY (post_id) REFERENCES posts(id) ON UPDATE CASCADE ON DELETE CASCADE ON UPDATE CASCADE ON DELETE CASCADE
     );
 
-INSERT INTO
-    likes_dislikes 
-VALUES ('03', '03',0);
 SELECT * FROM likes_dislikes;
 
+CREATE TABLE
+    comment_post(
+        id TEXT UNIQUE PRIMARY KEY NOT NULL,
+        id_user TEXT NOT NULL,
+        id_post TEXT NOT NULL,
+        content TEXT NOT NULL,
+        likes INTEGER DEFAULT(0) NOT NULL,
+        dislikes INTEGER DEFAULT(0) NOT NULL,
+        created_at TEXT NOT NULL DEFAULT(DATETIME('now', 'localtime')),
+        FOREIGN KEY (id_user) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE ON UPDATE CASCADE ON DELETE CASCADE,
+        FOREIGN KEY (id_post) REFERENCES posts(id) ON UPDATE CASCADE ON DELETE CASCADE ON UPDATE CASCADE ON DELETE CASCADE
+    );
+
+SELECT * FROM comment_post;
+
 SELECT *
-FROM users
-    INNER JOIN posts ON users.id = posts.creator_id
-    INNER JOIN likes_dislikes ON users.id = likes_dislikes.user_id
+FROM comment_post
+    INNER JOIN posts ON posts.id = comment_post.id_post;
+
+CREATE TABLE
+    likes_dislikes_comments (
+        id_user TEXT NOT NULL,
+        id_comment TEXT NOT NULL,
+        like INTEGER DEFAULT(0) NOT NULL,
+        FOREIGN KEY (id_user) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE ON UPDATE CASCADE ON DELETE CASCADE,
+        FOREIGN KEY (id_comment) REFERENCES comment_post(id) ON UPDATE CASCADE ON DELETE CASCADE ON UPDATE CASCADE ON DELETE CASCADE
+    );
+
+SELECT * FROM likes_dislikes_comments 
