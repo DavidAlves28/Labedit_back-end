@@ -43,6 +43,11 @@ https://dbdiagram.io/d/6492227702bd1c4a5eccfff1
     - [x]  updatePost
     - [x]  deletePost
     - [x]  like / dislike post
+    - [x]  getCommentByPosId
+    - [x]  createComments
+    - [x]  updateComments
+    - [x]  deleteComments
+    - [x]  like / dislike comments
    
 
 - Autenticação e autorização
