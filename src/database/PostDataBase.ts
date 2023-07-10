@@ -74,6 +74,7 @@ public findPostWithCreatorId = async (
       `${PostDataBase.TABLE_POSTS}.updated_at`,
       `${PostDataBase.TABLE_POSTS}.likes`,
       `${PostDataBase.TABLE_POSTS}.dislikes`,
+      `${PostDataBase.TABLE_POSTS}.counter`,
       `${UserDataBase.TABLE_USERS}.name as creator_name`
     )
     .join(
