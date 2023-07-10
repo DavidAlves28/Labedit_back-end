@@ -59,7 +59,7 @@ export class PostBusiness {
         post.dislikes,
         post.creator_id,
         post.creator_name,
-        post.total = 0
+        0
       );
       return posts.toBusinessModel();
     });

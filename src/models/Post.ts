@@ -9,7 +9,7 @@ export interface PostDB {
     likes: number;
     dislikes: number;
     creator_id: string;
-    total : number
+    counter : number
   }
   // type Post que contém o nome do criador.
   export interface PostDBWithCreatorName {
@@ -21,7 +21,7 @@ export interface PostDB {
     likes: number;
     dislikes: number;
     creator_name: string;
-    total :number
+    counter :number
   }
   
   // é o modelo de Post que o front receberá (createdAt camelCase)
@@ -36,7 +36,7 @@ export interface PostDB {
       id: string;
       name: string;
     },
-    total :number
+    counter :number
   }
   // classe Post 
   export class Posts {
@@ -49,7 +49,7 @@ export interface PostDB {
       private dislikes: number,
       private creatorId: string,
       private creatorName: string,
-      private  total : 0,
+      private  counter : 0,
       
     ) {}
   
@@ -85,7 +85,7 @@ export interface PostDB {
     // encrementar dislikes
     public addDislike = (): void => {
       this.dislikes++;
-      this.total++
+      this.counter++
     };
     // decrementar dislikes
     public removeDislike = (): void => {
@@ -102,7 +102,7 @@ export interface PostDB {
     // encrementar dislikes
     public addLike = (): void => {
       this.likes++;
-      this.total++
+      this.counter++
       
     };
     // decrementar dislikes
@@ -141,7 +141,7 @@ export interface PostDB {
         likes: this.likes,
         dislikes: this.dislikes,
         creator_id: this.creatorId,
-        total: this.total
+        counter: this.counter
       };
     }
 
@@ -158,7 +158,7 @@ export interface PostDB {
           id: this.creatorId,
           name: this.creatorName,
         },
-        total: this.total
+        counter: this.counter
 
       };
     }
