@@ -14,7 +14,7 @@ CREATE TABLE
 
 SELECT * FROM users;
 
--- DELETE FROM users  WHERE id='ec33e4c0-6b60-4182-a156-3dee356b55da' ;
+
 
 CREATE TABLE
     posts (
@@ -25,11 +25,15 @@ CREATE TABLE
         likes INTEGER DEFAULT(0) NOT NULL,
         dislikes INTEGER DEFAULT(0) NOT NULL,
         creator_id TEXT NOT NULL,
+        counter INTEGER DEFAULT(0) NOT NULL,
         FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE
     );
 
 SELECT * FROM posts;
 
+SELECT *
+FROM posts
+    INNER JOIN users ON users.id = posts.creator_id;
 CREATE TABLE
     likes_dislikes (
         user_id TEXT NOT NULL,
