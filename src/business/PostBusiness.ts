@@ -59,7 +59,7 @@ export class PostBusiness {
         post.dislikes,
         post.creator_id,
         post.creator_name,
-        0
+        post.counter
       );
       return posts.toBusinessModel();
     });
@@ -142,7 +142,7 @@ export class PostBusiness {
       postExist.dislikes,
       payload.id,
       payload.name,
-      0
+      postExist.counter
     );
 
     // editar conteúdo
@@ -228,7 +228,7 @@ export class PostBusiness {
       postExist.dislikes,
       payload.id,
       payload.name,
-      0
+      postExist.counter
     );
 
     // verificar se like é True ou False
@@ -252,12 +252,14 @@ export class PostBusiness {
       if (like) {
         await this.postDataBase.deleteLikeDislike(likeDislikeDB);
         newPost.removeLike();
-        
+        newPost.addCounter()
       } else {
         // decrementar o like se houver do DB e encrementar um dislike
         await this.postDataBase.updateLikeDislike(likeDislikeDB); // edita o like no DB.
         newPost.removeLike(); //decrementa o like.
         newPost.addDislike(); // encrementa o dislike.
+        newPost.addCounter()
+
       }
       // Se dislike for checked
     } else if (LikeDislikesExists === POST_LIKE.DISLIKED) {
@@ -266,12 +268,16 @@ export class PostBusiness {
         //  remove like do DB
         await this.postDataBase.deleteLikeDislike(likeDislikeDB);
         newPost.removeDislike(); //decrementa o like.
+        newPost.addCounter()
+      
       }
       // Caso dê um dislike em um post que tenha dado like, o dislike sobrescreve o like
       else {
         await this.postDataBase.updateLikeDislike(likeDislikeDB); // edita o like no DB.
         newPost.removeDislike(); // decrementa o like.
         newPost.addLike(); // encrementa o like.
+        newPost.addCounter()
+      
       }
     }
     // Caso não houver nunhum like ou dislike
