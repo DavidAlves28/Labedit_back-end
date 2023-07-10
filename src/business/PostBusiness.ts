@@ -252,13 +252,13 @@ export class PostBusiness {
       if (like) {
         await this.postDataBase.deleteLikeDislike(likeDislikeDB);
         newPost.removeLike();
-        newPost.addCounter()
+       
       } else {
         // decrementar o like se houver do DB e encrementar um dislike
         await this.postDataBase.updateLikeDislike(likeDislikeDB); // edita o like no DB.
         newPost.removeLike(); //decrementa o like.
         newPost.addDislike(); // encrementa o dislike.
-        newPost.addCounter()
+        
 
       }
       // Se dislike for checked
@@ -268,7 +268,7 @@ export class PostBusiness {
         //  remove like do DB
         await this.postDataBase.deleteLikeDislike(likeDislikeDB);
         newPost.removeDislike(); //decrementa o like.
-        newPost.addCounter()
+        
       
       }
       // Caso dê um dislike em um post que tenha dado like, o dislike sobrescreve o like
@@ -276,7 +276,7 @@ export class PostBusiness {
         await this.postDataBase.updateLikeDislike(likeDislikeDB); // edita o like no DB.
         newPost.removeDislike(); // decrementa o like.
         newPost.addLike(); // encrementa o like.
-        newPost.addCounter()
+       
       
       }
     }
