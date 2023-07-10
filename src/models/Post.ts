@@ -1,3 +1,5 @@
+import { number } from "zod";
+
 // type do DataBase
 export interface PostDB {
     id: string;
@@ -7,6 +9,7 @@ export interface PostDB {
     likes: number;
     dislikes: number;
     creator_id: string;
+    total : number
   }
   // type Post que contém o nome do criador.
   export interface PostDBWithCreatorName {
@@ -18,6 +21,7 @@ export interface PostDB {
     likes: number;
     dislikes: number;
     creator_name: string;
+    total :number
   }
   
   // é o modelo de Post que o front receberá (createdAt camelCase)
@@ -31,7 +35,8 @@ export interface PostDB {
     creator: {
       id: string;
       name: string;
-    };
+    },
+    total :number
   }
   // classe Post 
   export class Posts {
@@ -43,7 +48,9 @@ export interface PostDB {
       private likes: number,
       private dislikes: number,
       private creatorId: string,
-      private creatorName: string
+      private creatorName: string,
+      private  total : 0,
+      
     ) {}
   
     public getId(): string {
@@ -78,6 +85,7 @@ export interface PostDB {
     // encrementar dislikes
     public addDislike = (): void => {
       this.dislikes++;
+      this.total++
     };
     // decrementar dislikes
     public removeDislike = (): void => {
@@ -94,6 +102,8 @@ export interface PostDB {
     // encrementar dislikes
     public addLike = (): void => {
       this.likes++;
+      this.total++
+      
     };
     // decrementar dislikes
     public removeLike = (): void => {
@@ -131,6 +141,7 @@ export interface PostDB {
         likes: this.likes,
         dislikes: this.dislikes,
         creator_id: this.creatorId,
+        total: this.total
       };
     }
 
@@ -147,6 +158,8 @@ export interface PostDB {
           id: this.creatorId,
           name: this.creatorName,
         },
+        total: this.total
+
       };
     }
   }

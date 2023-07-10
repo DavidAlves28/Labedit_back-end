@@ -17,6 +17,7 @@ const postsMock  : PostDBWithCreatorName[] = [
     likes: 0,
     dislikes: 0,
     creator_name: "Normal-User",
+    total:0
   },
   {
     id: "id-mock-post2",
@@ -27,6 +28,7 @@ const postsMock  : PostDBWithCreatorName[] = [
     likes: 2,
     dislikes: 1,
     creator_name: "Normal-User",
+    total:0
   },
 ];
 

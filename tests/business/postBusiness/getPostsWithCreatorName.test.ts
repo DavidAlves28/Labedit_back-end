@@ -32,6 +32,7 @@ describe("teste getPostsWithCreatorName ", () => {
         id: "id-mock-normal",
         name: "Normal-User",
       },
+      total:0
     });
   });
 

@@ -58,7 +58,8 @@ export class PostBusiness {
         post.likes,
         post.dislikes,
         post.creator_id,
-        post.creator_name
+        post.creator_name,
+        post.total = 0
       );
       return posts.toBusinessModel();
     });
@@ -92,7 +93,8 @@ export class PostBusiness {
       0, //likes
       0, //dislikes
       payload.id,
-      payload.name
+      payload.name,
+      0
     );
 
     // criar post
@@ -139,7 +141,8 @@ export class PostBusiness {
       postExist.likes,
       postExist.dislikes,
       payload.id,
-      payload.name
+      payload.name,
+      0
     );
 
     // editar conteúdo
@@ -224,7 +227,8 @@ export class PostBusiness {
       postExist.likes,
       postExist.dislikes,
       payload.id,
-      payload.name
+      payload.name,
+      0
     );
 
     // verificar se like é True ou False

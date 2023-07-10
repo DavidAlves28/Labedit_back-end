@@ -32,6 +32,7 @@ describe("Teste endpoint updatePost", () => {
         likes: 0,
         dislikes: 0,
         creator: { id: "id-mock-normal", name: "Normal-User" },
+        total:0
       },
     });
   });
