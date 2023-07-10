@@ -49,7 +49,7 @@ export interface PostDB {
       private dislikes: number,
       private creatorId: string,
       private creatorName: string,
-      private  counter : 0,
+      private counter : number,
       
     ) {}
   
@@ -81,15 +81,20 @@ export interface PostDB {
       this.dislikes = value;
     }
   
+    public addCounter = (): void => {     
+      this.counter++
+    };
     // será utilizado no endpoint
     // encrementar dislikes
     public addDislike = (): void => {
       this.dislikes++;
-      this.counter++
+      this.addCounter()
     };
+
     // decrementar dislikes
     public removeDislike = (): void => {
       this.dislikes--;
+      this.addCounter()
     };
   
     public getLikes(): number {

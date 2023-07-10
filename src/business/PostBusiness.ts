@@ -252,6 +252,7 @@ export class PostBusiness {
       if (like) {
         await this.postDataBase.deleteLikeDislike(likeDislikeDB);
         newPost.removeLike();
+        
       } else {
         // decrementar o like se houver do DB e encrementar um dislike
         await this.postDataBase.updateLikeDislike(likeDislikeDB); // edita o like no DB.
