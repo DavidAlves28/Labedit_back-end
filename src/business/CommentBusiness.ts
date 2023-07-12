@@ -74,7 +74,7 @@ export class CommentBusiness {
         comment.created_at,
         comment.likes,
         comment.dislikes,
-        payload.name
+        comment.creator_name
       );
       return comments.toBusinessModel();
     });
