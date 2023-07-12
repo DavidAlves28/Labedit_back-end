@@ -31,7 +31,10 @@ import {
   COMMENT_LIKE,
   LikeOrDislikeCommentDB,
 } from "../models/LikeOrDislikesComments";
-import { LikesDislikesInputCommentDTO, LikesDislikesOutputCommentDTO } from "../dtos/likeDislikes/likeDislikesComment.dto";
+import {
+  LikesDislikesInputCommentDTO,
+  LikesDislikesOutputCommentDTO,
+} from "../dtos/likeDislikes/likeDislikesComment.dto";
 
 export class CommentBusiness {
   // Injeção de dependências
@@ -70,7 +73,8 @@ export class CommentBusiness {
         comment.content,
         comment.created_at,
         comment.likes,
-        comment.dislikes,        
+        comment.dislikes,
+        payload.name
       );
       return comments.toBusinessModel();
     });
@@ -110,7 +114,7 @@ export class CommentBusiness {
       new Date().toLocaleString(), // createdAt
       0, //likes
       0, //dislikes
-     
+      payload.name
     );
 
     // criar post
@@ -156,7 +160,8 @@ export class CommentBusiness {
       commentExist.content,
       commentExist.created_at,
       commentExist.likes,
-      commentExist.dislikes,     
+      commentExist.dislikes,
+      payload.name
     );
 
     // editar conteúdo
@@ -238,7 +243,8 @@ export class CommentBusiness {
       commentExist.content,
       commentExist.created_at,
       commentExist.likes,
-      commentExist.dislikes,     
+      commentExist.dislikes,
+      payload.name
     );
 
     // verificar se like é True ou False
