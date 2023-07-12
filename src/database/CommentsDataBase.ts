@@ -23,9 +23,9 @@ export class CommentsDataBase extends BaseDataBase {
         `${CommentsDataBase.TABLE_COMMENTS}.id  `,
         `${CommentsDataBase.TABLE_COMMENTS}.content`,
         `${CommentsDataBase.TABLE_COMMENTS}.created_at`,
-
         `${CommentsDataBase.TABLE_COMMENTS}.likes`,
         `${CommentsDataBase.TABLE_COMMENTS}.dislikes`,
+        `${CommentsDataBase.TABLE_COMMENTS}.creator_name`,
         `${PostDataBase.TABLE_POSTS}.id AS postId`
       )
       .join(

@@ -29,7 +29,8 @@ export interface CommentModel {
   content: string;
   created_at: string;
   likes: number;
-  dislikes: number; 
+  dislikes: number;
+  creator_name: string; 
 }
 // classe Post
 export class CommentPosts {
@@ -41,6 +42,8 @@ export class CommentPosts {
     private createdAt: string,
     private likes: number,
     private dislikes: number,
+    private creatorName: string
+
  
   ) {}
 
@@ -123,7 +126,7 @@ export class CommentPosts {
       created_at: this.createdAt,
       likes: this.likes,
       dislikes: this.dislikes,
-      
+      creator_name : this.creatorName
      
     };
   }
