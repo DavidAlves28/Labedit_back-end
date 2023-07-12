@@ -7,7 +7,7 @@ export interface CommentDB {
   created_at: string;
   likes: number;
   dislikes: number;
-  
+  creator_name : string
 }
 
 export interface CommentDBWithCreatorName {
@@ -42,7 +42,7 @@ export class CommentPosts {
     private createdAt: string,
     private likes: number,
     private dislikes: number,
-    private creatorName: string
+    private creator_name: string
 
  
   ) {}
@@ -52,6 +52,12 @@ export class CommentPosts {
   }
   public setId(value: string): void {
     this.id = value;
+  }
+  public getCreatorName(): string {
+    return this.creator_name;
+  }
+  public setCreatorName(value: string): void {
+    this.creator_name = value;
   }
 
 
@@ -112,7 +118,8 @@ export class CommentPosts {
       content: this.content,
       created_at: this.createdAt,
       likes: this.likes,
-      dislikes: this.dislikes,      
+      dislikes: this.dislikes,   
+      creator_name : this.creator_name   
     };
   }
 
@@ -126,7 +133,7 @@ export class CommentPosts {
       created_at: this.createdAt,
       likes: this.likes,
       dislikes: this.dislikes,
-      creator_name : this.creatorName
+      creator_name : this.creator_name
      
     };
   }
