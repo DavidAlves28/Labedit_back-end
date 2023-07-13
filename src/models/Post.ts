@@ -33,11 +33,11 @@ export interface PostDB {
     updatedAt: string;
     likes: number;
     dislikes: number;
+    counter :number
     creator: {
       id: string;
       name: string;
     },
-    counter :number
   }
   // classe Post 
   export class Posts {
@@ -93,13 +93,13 @@ export interface PostDB {
     // encrementar dislikes
     public addDislike = (): void => {
       this.dislikes++;
-      this.removeDislike()
+      this.addCounter()
     };
 
     // decrementar dislikes
     public removeDislike = (): void => {
       this.dislikes--;
-      this.addCounter()
+      this.RemoveCounter()
     };
   
     public getLikes(): number {
@@ -112,12 +112,13 @@ export interface PostDB {
     // encrementar dislikes
     public addLike = (): void => {
       this.likes++;
-      this.counter++
+      this.addCounter()
       
     };
     // decrementar dislikes
     public removeLike = (): void => {
       this.likes--;
+      this.RemoveCounter()
     };
   
     public getContent(): string {
