@@ -12,32 +12,32 @@ import { CommentsDataBase } from "../database/CommentsDataBase";
 export const postRoute = express.Router();
 
 const postController = new PostController(
-  new PostBusiness(
-    new PostDataBase(), 
-    new IdGenerator(),
-    new TokenManager())
+  new PostBusiness(new PostDataBase(), new IdGenerator(), new TokenManager())
 );
 
 const commentController = new CommentController(
-   new CommentBusiness(
-    new CommentsDataBase(), 
-    new PostDataBase(), 
+  new CommentBusiness(
+    new CommentsDataBase(),
+    new PostDataBase(),
     new IdGenerator(),
-    new TokenManager())
-    )
+    new TokenManager()
+  )
+);
 
 postRoute.get("/", postController.getPostsWithCreatorName);
-postRoute.get("/:id",commentController.getAllCommentByPostId)
-
 postRoute.post("/", postController.createPost);
-postRoute.post("/:id/comments",commentController.createComment)
+
+postRoute.get("/:id", postController.getPostsById);
+
+postRoute.get("/:id/comments", commentController.getAllCommentByPostId);
+
+postRoute.post("/:id/comments", commentController.createComment);
 
 postRoute.put("/:id", postController.updatePost);
-postRoute.put("/comments/:id", commentController.updateComment)
+postRoute.put("/comments/:id", commentController.updateComment);
 
 postRoute.delete("/:id", postController.deletePost);
-postRoute.delete("/comments/:id", commentController.deleteComment)
+postRoute.delete("/comments/:id", commentController.deleteComment);
 // route para Like e/ou Dislike
 postRoute.put("/:id/like", postController.LikeDislikePost);
 postRoute.put("/comments/:id/like", commentController.LikeDislikeComment);
-

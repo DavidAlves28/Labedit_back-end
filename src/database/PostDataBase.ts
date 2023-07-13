@@ -30,6 +30,14 @@ public getPostsWithCreatorName = async (): Promise<PostDBWithCreatorName[]> => {
 
   return result;
 };
+public  getPostById = async (id: string): Promise<PostDB[]> => {
+  const postsDB: PostDB[] = await BaseDataBase.connection(
+    PostDataBase.TABLE_POSTS
+  ).where({ id });
+
+  return postsDB;
+
+  }
 
 // retornar post pelo id
 public async findPostById(id: string): Promise<PostDB | undefined> {

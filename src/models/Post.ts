@@ -9,6 +9,7 @@ export interface PostDB {
     likes: number;
     dislikes: number;
     creator_id: string;
+    creator_name: string;
     counter : number
   }
   // type Post que contém o nome do criador.
@@ -84,11 +85,15 @@ export interface PostDB {
     public addCounter = (): void => {     
       this.counter++
     };
+
+    public RemoveCounter = (): void => {     
+      this.counter--
+    };
     // será utilizado no endpoint
     // encrementar dislikes
     public addDislike = (): void => {
       this.dislikes++;
-      this.addCounter()
+      this.removeDislike()
     };
 
     // decrementar dislikes
@@ -146,7 +151,8 @@ export interface PostDB {
         likes: this.likes,
         dislikes: this.dislikes,
         creator_id: this.creatorId,
-        counter: this.counter
+        counter: this.counter,
+        creator_name : this.creatorName
       };
     }
 

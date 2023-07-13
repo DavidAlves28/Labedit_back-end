@@ -7,6 +7,7 @@ import { CreatePostSchema } from "../dtos/posts/createPost.dto";
 import { UpdaterPostSchema } from "../dtos/posts/update.dto";
 import { DeletePostSchema } from "../dtos/posts/deletePost.dto";
 import { LikeDislikePSchema } from "../dtos/likeDislikes/like-dislikes.dto";
+import { GetPostByIdSchema } from "../dtos/posts/getPostById.dto";
 
 
 
@@ -36,6 +37,29 @@ export class PostController {
         res.status(error.statusCode).send(error.message);
       } else {
         res.status(500).send("Erro inesperado");
+      }
+    }
+  };
+
+  getPostsById = async (req: Request, res: Response) => {
+    try {
+      const input = GetPostByIdSchema.parse({
+        idPost: req.params.id,
+        token: req.headers.authorization,
+      });
+
+      const posts = await this.postBusiness.getPostsById(input);
+
+      res.status(200).send(posts);
+    } catch (error) {
+      console.log(error);
+
+      if (error instanceof ZodError) {
+        res.status(400).send(error.issues);
+      } else if (error instanceof BaseError) {
+        res.status(error.statusCode).send(error.message);
+      } else {
+        res.status(500).send("erro inesperado");
       }
     }
   };
