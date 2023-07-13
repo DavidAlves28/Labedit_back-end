@@ -25,10 +25,12 @@ CREATE TABLE
         dislikes INTEGER DEFAULT(0) NOT NULL,
         creator_id TEXT NOT NULL,
         counter INTEGER DEFAULT(0) NOT NULL,
+        creator_name TEXT NOT NULL,
         FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE
     );
 
 SELECT * FROM posts;
+drop TABLE posts;
 SELECT *
 FROM posts
     INNER JOIN users ON users.id = posts.creator_id;
