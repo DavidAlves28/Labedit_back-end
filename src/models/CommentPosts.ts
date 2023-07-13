@@ -3,37 +3,37 @@ export interface CommentDB {
   id: string;
   id_user: string;
   id_post: string;
+  counter: number;
   content: string;
   created_at: string;
   likes: number;
   dislikes: number;
   creator_name: string;
-  counter: number;
 }
 
 export interface CommentDBWithCreatorName {
   id: string;
   id_user: string;
   id_post: string;
+  counter: number;
   creator_id: string;
   content: string;
   created_at: string;
   likes: number;
   dislikes: number;
   creator_name: string;
-  counter: number;
 }
 
 export interface CommentModel {
   id: string;
   id_user: string;
   id_post: string;
+  counter: number;
   content: string;
   created_at: string;
   likes: number;
   dislikes: number;
   creator_name: string;
-  counter: number;
 }
 // classe Post
 export class CommentPosts {
@@ -125,12 +125,12 @@ export class CommentPosts {
       id: this.id,
       id_user: this.idUser,
       id_post: this.idPost,
+      counter : this.counter,
       content: this.content,
       created_at: this.createdAt,
       likes: this.likes,
       dislikes: this.dislikes,
-      creator_name: this.creator_name,
-      counter : this.counter
+      creator_name: this.creator_name
     };
   }
 
@@ -140,13 +140,12 @@ export class CommentPosts {
       id: this.id,
       id_user: this.idUser,
       id_post: this.idPost,
+      counter : this.counter,
       content: this.content,
       created_at: this.createdAt,
       likes: this.likes,
       dislikes: this.dislikes,
-      creator_name: this.creator_name,
-      counter : this.counter
-
+      creator_name: this.creator_name
     };
   }
 }
