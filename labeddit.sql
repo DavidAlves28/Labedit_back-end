@@ -15,7 +15,6 @@ CREATE TABLE
 SELECT * FROM users;
 
 
-
 CREATE TABLE
     posts (
         id TEXT PRIMARY KEY UNIQUE NOT NULL,
@@ -30,7 +29,6 @@ CREATE TABLE
     );
 
 SELECT * FROM posts;
-
 SELECT *
 FROM posts
     INNER JOIN users ON users.id = posts.creator_id;
@@ -55,6 +53,7 @@ CREATE TABLE
         dislikes INTEGER DEFAULT(0) NOT NULL,
         created_at TEXT NOT NULL DEFAULT(DATETIME('now', 'localtime')),
         creator_name TEXT NOT NULL,
+        counter INTEGER DEFAULT(0) NOT NULL,
         FOREIGN KEY (id_user) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE ON UPDATE CASCADE ON DELETE CASCADE,
         FOREIGN KEY (id_post) REFERENCES posts(id) ON UPDATE CASCADE ON DELETE CASCADE ON UPDATE CASCADE ON DELETE CASCADE
     );

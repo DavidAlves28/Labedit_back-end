@@ -74,7 +74,8 @@ export class CommentBusiness {
         comment.created_at,
         comment.likes,
         comment.dislikes,
-        comment.creator_name
+        comment.creator_name,
+        comment.counter
       );
       return comments.toBusinessModel();
     });
@@ -114,7 +115,8 @@ export class CommentBusiness {
       new Date().toLocaleString(), // createdAt
       0, //likes
       0, //dislikes
-      payload.name
+      payload.name,
+      0
     );
 
     // criar post
@@ -161,7 +163,8 @@ export class CommentBusiness {
       commentExist.created_at,
       commentExist.likes,
       commentExist.dislikes,
-      payload.name
+      payload.name,
+      commentExist.counter
     );
 
     // editar conteúdo
@@ -244,7 +247,8 @@ export class CommentBusiness {
       commentExist.created_at,
       commentExist.likes,
       commentExist.dislikes,
-      payload.name
+      payload.name,
+      commentExist.counter
     );
 
     // verificar se like é True ou False

@@ -7,7 +7,8 @@ export interface CommentDB {
   created_at: string;
   likes: number;
   dislikes: number;
-  creator_name : string
+  creator_name: string;
+  counter: number;
 }
 
 export interface CommentDBWithCreatorName {
@@ -20,6 +21,7 @@ export interface CommentDBWithCreatorName {
   likes: number;
   dislikes: number;
   creator_name: string;
+  counter: number;
 }
 
 export interface CommentModel {
@@ -30,7 +32,8 @@ export interface CommentModel {
   created_at: string;
   likes: number;
   dislikes: number;
-  creator_name: string; 
+  creator_name: string;
+  counter: number;
 }
 // classe Post
 export class CommentPosts {
@@ -42,9 +45,8 @@ export class CommentPosts {
     private createdAt: string,
     private likes: number,
     private dislikes: number,
-    private creator_name: string
-
- 
+    private creator_name: string,
+    private counter: number
   ) {}
 
   public getId(): string {
@@ -60,22 +62,28 @@ export class CommentPosts {
     this.creator_name = value;
   }
 
-
   public getDislikes(): number {
     return this.dislikes;
   }
   public setDislikes(value: number) {
     this.dislikes = value;
   }
-
+  public addCounter = (): void => {
+    this.counter++;
+  };
+  public RemoveCounter = (): void => {
+    this.counter--;
+  };
   // será utilizado no endpoint
   // encrementar dislikes
   public addDislike = (): void => {
     this.dislikes++;
+    this.addCounter();
   };
   // decrementar dislikes
   public removeDislike = (): void => {
     this.dislikes--;
+    this.RemoveCounter();
   };
 
   public getLikes(): number {
@@ -88,10 +96,12 @@ export class CommentPosts {
   // encrementar dislikes
   public addLike = (): void => {
     this.likes++;
+    this.addCounter();
   };
   // decrementar dislikes
   public removeLike = (): void => {
     this.likes--;
+    this.RemoveCounter();
   };
 
   public getContent(): string {
@@ -118,8 +128,9 @@ export class CommentPosts {
       content: this.content,
       created_at: this.createdAt,
       likes: this.likes,
-      dislikes: this.dislikes,   
-      creator_name : this.creator_name   
+      dislikes: this.dislikes,
+      creator_name: this.creator_name,
+      counter : this.counter
     };
   }
 
@@ -133,8 +144,9 @@ export class CommentPosts {
       created_at: this.createdAt,
       likes: this.likes,
       dislikes: this.dislikes,
-      creator_name : this.creator_name
-     
+      creator_name: this.creator_name,
+      counter : this.counter
+
     };
   }
 }

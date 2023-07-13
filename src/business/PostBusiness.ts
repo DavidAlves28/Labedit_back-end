@@ -1,3 +1,4 @@
+import { GetPostByIdInputDTO, GetPostByIdOutputDTO, GetPostByIdSchema } from './../dtos/posts/getPostById.dto';
 import { PostDataBase } from "../database/PostDataBase";
 import {
   LikesDislikesInputDTO,
@@ -68,6 +69,40 @@ export class PostBusiness {
     return output;
   };
 
+
+  public getPostsById = async (
+    input: GetPostByIdInputDTO
+  ): Promise<GetPostByIdOutputDTO> => {
+    // receber dados do Front-end
+    const { token ,idPost} = input;
+    // requer token do usuário logado
+
+    const payload = await this.tokenManager.getPayload(token);
+
+    if (!payload) {
+      throw new UnauthorizedError();
+    }
+    // verificar se id existe  na DB.
+    const postDB = await this.postDataBase.getPostById(idPost);
+    // estância para novo post
+    const findPosts = postDB.map((post) => {
+      const posts = new Posts(
+        post.id,
+        post.content,
+        post.created_at,
+        post.updated_at,
+        post.likes,
+        post.dislikes,
+        post.creator_id,
+        post.creator_name,        
+        post.counter
+      );
+      return posts.toBusinessModel();
+    });
+    // retorno para Front-end
+    const output: GetPostsOutputDTO = findPosts;
+    return output;
+  };
   // Criar Post
   public createPost = async (
     input: CreatePostInputDTO
