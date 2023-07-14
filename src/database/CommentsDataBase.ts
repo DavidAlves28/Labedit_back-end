@@ -21,6 +21,7 @@ export class CommentsDataBase extends BaseDataBase {
     )
       .select(
         `${CommentsDataBase.TABLE_COMMENTS}.id  `,
+        `${CommentsDataBase.TABLE_COMMENTS}.counter `,
         `${CommentsDataBase.TABLE_COMMENTS}.content`,
         `${CommentsDataBase.TABLE_COMMENTS}.created_at`,
         `${CommentsDataBase.TABLE_COMMENTS}.likes`,
@@ -30,9 +31,9 @@ export class CommentsDataBase extends BaseDataBase {
       )
       .join(
         `${PostDataBase.TABLE_POSTS}`,
-        `${PostDataBase.TABLE_POSTS}.id`,
+        `${CommentsDataBase.TABLE_COMMENTS}.${id_post}`,
         "=",
-        `${CommentsDataBase.TABLE_COMMENTS}.${id_post}`
+        `${PostDataBase.TABLE_POSTS}.${id_post}`,
       );
 
     return result;
