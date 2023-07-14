@@ -1,20 +1,18 @@
 // type do DataBase
 export interface CommentDB {
   id: string;
-  id_user: string;
-  id_post: string;
   counter: number;
   content: string;
   created_at: string;
   likes: number;
   dislikes: number;
   creator_name: string;
+  id_user: string;
+  id_post: string;
 }
 
 export interface CommentDBWithCreatorName {
   id: string;
-  id_user: string;
-  id_post: string;
   counter: number;
   creator_id: string;
   content: string;
@@ -22,31 +20,33 @@ export interface CommentDBWithCreatorName {
   likes: number;
   dislikes: number;
   creator_name: string;
+  id_user: string;
+  id_post: string;
 }
 
 export interface CommentModel {
   id: string;
-  id_user: string;
-  id_post: string;
   counter: number;
   content: string;
   created_at: string;
   likes: number;
   dislikes: number;
   creator_name: string;
+  id_post: string;
+  id_user: string;
 }
 // classe Post
 export class CommentPosts {
   constructor(
     private id: string,
-    private idUser: string,
-    private idPost: string,
+    private counter: number,
     private content: string,
     private createdAt: string,
     private likes: number,
     private dislikes: number,
     private creator_name: string,
-    private counter: number
+    private idUser: string,
+    private idPost: string,
   ) {}
 
   public getId(): string {
@@ -123,14 +123,14 @@ export class CommentPosts {
   public toDBModel(): CommentDB {
     return {
       id: this.id,
-      id_user: this.idUser,
-      id_post: this.idPost,
       counter : this.counter,
       content: this.content,
       created_at: this.createdAt,
       likes: this.likes,
       dislikes: this.dislikes,
-      creator_name: this.creator_name
+      creator_name: this.creator_name,
+      id_user: this.idUser,
+      id_post: this.idPost,
     };
   }
 
@@ -138,14 +138,14 @@ export class CommentPosts {
   public toBusinessModel(): CommentModel {
     return {
       id: this.id,
-      id_user: this.idUser,
-      id_post: this.idPost,
       counter : this.counter,
       content: this.content,
       created_at: this.createdAt,
       likes: this.likes,
       dislikes: this.dislikes,
-      creator_name: this.creator_name
+      creator_name: this.creator_name,
+      id_user: this.idUser,
+      id_post: this.idPost,
     };
   }
 }

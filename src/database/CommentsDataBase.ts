@@ -30,9 +30,9 @@ export class CommentsDataBase extends BaseDataBase {
       )
       .join(
         `${PostDataBase.TABLE_POSTS}`,
-        `${CommentsDataBase.TABLE_COMMENTS}.id_post`,
+        `${PostDataBase.TABLE_POSTS}.id`,
         "=",
-        `${PostDataBase.TABLE_POSTS}.id`
+        `${CommentsDataBase.TABLE_COMMENTS}.${id_post}`
       );
 
     return result;

@@ -17,7 +17,7 @@ const postsMock  : PostDBWithCreatorName[] = [
     likes: 0,
     dislikes: 0,
     creator_name: "Normal-User",
-    total:0
+    counter:0
   },
   {
     id: "id-mock-post2",
@@ -28,7 +28,7 @@ const postsMock  : PostDBWithCreatorName[] = [
     likes: 2,
     dislikes: 1,
     creator_name: "Normal-User",
-    total:0
+    counter:0
   },
 ];
 
@@ -45,6 +45,10 @@ export class PostDataBaseMock extends BaseDataBase {
 
   // retornar post pelo id
   public async findPostById(id: string): Promise<PostDB | undefined> {
+    return postsMock.filter((post) => post.id === id)[0];
+  }
+
+  public async getPostById(id: string): Promise<PostDB> {
     return postsMock.filter((post) => post.id === id)[0];
   }
   // creição de post na database

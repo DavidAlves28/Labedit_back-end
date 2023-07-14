@@ -5,11 +5,7 @@ export interface LikesDislikesInputCommentDTO {
   token: string;
   like: boolean;
 }
-export interface LikesDislikesInputCommentDTO {  
-    commentId:string,
-  token: string;
-  like: boolean;
-}
+
 // tipagem de saída de dados para o Fron-end (sem password)
 
 export type LikesDislikesOutputCommentDTO = undefined;
