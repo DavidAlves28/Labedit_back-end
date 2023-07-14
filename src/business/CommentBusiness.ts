@@ -68,14 +68,14 @@ export class CommentBusiness {
     const findComments = commentDB.map((comment) => {
       const comments = new CommentPosts(
         comment.id,
-        comment.id_user,
-        comment.id_post,
+        comment.counter,
         comment.content,
         comment.created_at,
         comment.likes,
         comment.dislikes,
         comment.creator_name,
-        comment.counter
+        comment.id_user,
+        comment.id_post,
       );
       return comments.toBusinessModel();
     });
@@ -109,14 +109,14 @@ export class CommentBusiness {
 
     const newComment = new CommentPosts(
       id,
-      payload.id,
-      idPost,
+      0,
       content,
       new Date().toLocaleString(), // createdAt
       0, //likes
       0, //dislikes
       payload.name,
-      0
+      payload.id,
+      idPost,
     );
 
     // criar post
@@ -157,14 +157,14 @@ export class CommentBusiness {
     //estância novo comment
     const newComment = new CommentPosts(
       commentExist.id,
-      commentExist.id_user,
-      commentExist.id_post,
+      commentExist.counter,
       commentExist.content,
       commentExist.created_at,
       commentExist.likes,
       commentExist.dislikes,
       payload.name,
-      commentExist.counter
+      commentExist.id_user,
+      commentExist.id_post,
     );
 
     // editar conteúdo
@@ -241,14 +241,14 @@ export class CommentBusiness {
     //estânciar novo post
     const newComment = new CommentPosts(
       commentExist.id,
-      commentExist.id_user,
-      commentExist.id_post,
+      commentExist.counter,
       commentExist.content,
       commentExist.created_at,
       commentExist.likes,
       commentExist.dislikes,
       payload.name,
-      commentExist.counter
+      commentExist.id_user,
+      commentExist.id_post,
     );
 
     // verificar se like é True ou False
