@@ -20,8 +20,8 @@ export class CommentsDataBase extends BaseDataBase {
       CommentsDataBase.TABLE_COMMENTS
     )
       .select(
-        `${CommentsDataBase.TABLE_COMMENTS}.id  `,
-         `${CommentsDataBase.TABLE_COMMENTS}.id_post`,
+         `${CommentsDataBase.TABLE_COMMENTS}.id  `,
+        `${CommentsDataBase.TABLE_COMMENTS}.id_post `,
         `${CommentsDataBase.TABLE_COMMENTS}.counter`,
         `${CommentsDataBase.TABLE_COMMENTS}.content`,
         `${CommentsDataBase.TABLE_COMMENTS}.created_at`,
@@ -34,8 +34,10 @@ export class CommentsDataBase extends BaseDataBase {
         `${PostDataBase.TABLE_POSTS}`,
         `${CommentsDataBase.TABLE_COMMENTS}.id_post`,
         "=",
-        `${PostDataBase.TABLE_POSTS}.id`,
-      );
+        `${PostDataBase.TABLE_POSTS}.id`,      
+        
+
+      )
 
     return result;
   };

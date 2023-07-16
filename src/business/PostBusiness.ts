@@ -261,8 +261,8 @@ export class PostBusiness {
       postExist.updated_at,
       postExist.likes,
       postExist.dislikes,
-      payload.id,
-      payload.name,
+      postExist.creator_id,
+      postExist.creator_name,
       postExist.counter
     );
 
