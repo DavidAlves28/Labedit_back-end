@@ -7,20 +7,22 @@ import {
   GetPostsOutputDTO,
 } from "../../../src/dtos/posts/getPost.dto";
 import { UnauthorizedError } from "../../../src/errors/UnauthorizedError";
+import { GetPostByIdOutputDTO, GetPostByIdSchema } from "../../../src/dtos/posts/getPostById.dto";
 describe("teste getPostsWithCreatorName ", () => {
   const postBusiness = new PostBusiness(
     new PostDataBaseMock(),
     new IdGeneratorMock(),
     new TokenManagerMock()
   );
-  test("deve gerar todos os post ", async () => {
+  test("deve gerar um post ", async () => {
     expect.assertions(2);
-    const input = GetPostSchema.parse({
+    const input = GetPostByIdSchema.parse({
       token: "token-mock-normal",
+      idPost:"id-mock-post1"
     });
     const output: GetPostsOutputDTO =
-      await postBusiness.getPostsWithCreatorName(input);
-    expect(output).toHaveLength(2);
+      await postBusiness.getPostsById(input);
+    expect(output).toHaveLength(1);
     expect(output).toContainEqual({
       id: "id-mock-post1",
       content: "teste mock post",
@@ -39,11 +41,13 @@ describe("teste getPostsWithCreatorName ", () => {
   test("deve diparar erro payload não autorizado", async () => {
     expect.assertions(2);
     try {
-      const input = GetPostSchema.parse({
+      const input = GetPostByIdSchema.parse({
         token: "token-mock",
-      });
-      const output: GetPostsOutputDTO =
-        await postBusiness.getPostsWithCreatorName(input);
+      idPost:"id-mock-post1"
+        
+    });
+      const output: GetPostByIdOutputDTO =
+        await postBusiness.getPostsById(input);
 
     } catch (error) {
       if (error instanceof UnauthorizedError) {

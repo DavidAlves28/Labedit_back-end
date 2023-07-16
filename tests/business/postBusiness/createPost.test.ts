@@ -33,7 +33,7 @@ describe("Teste createPost", () => {
           id: "id-mock-normal",
           name: "Normal-User",
         },
-        total:0
+        counter:0
       },
     });
   });

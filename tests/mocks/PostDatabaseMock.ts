@@ -48,8 +48,8 @@ export class PostDataBaseMock extends BaseDataBase {
     return postsMock.filter((post) => post.id === id)[0];
   }
 
-  public async getPostById(id: string): Promise<PostDB> {
-    return postsMock.filter((post) => post.id === id)[0];
+  public async getPostById(id: string): Promise<PostDB[]> {
+    return[ postsMock.filter((post) => post.id === id)[0]];
   }
   // creição de post na database
   public insertPost = async (newPost: PostDB): Promise<PostDB> => {
