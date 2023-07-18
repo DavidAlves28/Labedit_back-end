@@ -1,46 +1,42 @@
-import {
-  UpdatePostInputDTO,
-  UpdaterPostSchema,
-} from "./../../../src/dtos/posts/update.dto";
 import { ZodError } from "zod";
-import { PostBusiness } from "../../../src/business/PostBusiness";
-import {
-  LikeDislikePSchema,
-  LikesDislikesOutputDTO,
-} from "../../../src/dtos/likeDislikes/like-dislikes.dto";
+
+import { LikeDislikePSchema } from "../../../src/dtos/likeDislikes/like-dislikes.dto";
 import { IdGeneratorMock } from "../../mocks/IdGeneratorMock";
 import { PostDataBaseMock } from "../../mocks/PostDatabaseMock";
 import { TokenManagerMock } from "../../mocks/TokenManagerMock";
 import { UnauthorizedError } from "../../../src/errors/UnauthorizedError";
 import { NotFoundError } from "../../../src/errors/NotFounError";
-;
-
-describe("Teste  likeDislikePost", () => {
-  const postBusiness = new PostBusiness(
+import { CommentBusiness } from "../../../src/business/CommentBusiness";
+import { CommentsDataBaseMock } from "../../mocks/CommentDatabaseMock";
+import { LikeDislikeCommentPSchema } from "../../../src/dtos/likeDislikes/likeDislikesComment.dto";
+describe("Teste  likeDislikeComment", () => {
+  const commentsBusiness = new CommentBusiness(
+    new CommentsDataBaseMock(),
     new PostDataBaseMock(),
     new IdGeneratorMock(),
     new TokenManagerMock()
   );
   const postDataBaseMock = new PostDataBaseMock();
 
-  test("deve gerar like no post", async () => {
-    const input = LikeDislikePSchema.parse({
+  test("deve gerar like no Comment", async () => {
+    const input = LikeDislikeCommentPSchema.parse({
       token: "token-mock-normal",
       like: true,
-      postId: "id-mock-post2",
+      commentId: "id-mock-comment1",
     });
 
-    const output = await postBusiness.likeDislikePost(input);
+    const output = await commentsBusiness.likeDislikeComment(input);
     expect(output).toBeUndefined();
   });
 
   test("deve gerar erro like, deve ser boolean ", async () => {
     try {
-      const input = LikeDislikePSchema.parse({
+      const input = LikeDislikeCommentPSchema.parse({
         token: "token-mock-normal",
         like: 0,
-        postId: "id-mock-post2",
+        commentId: "id-mock-comment1",
       });
+      await commentsBusiness.likeDislikeComment(input)
     } catch (error) {
       if (error instanceof ZodError) {
         expect(error.issues[0].message).toBe(
@@ -62,12 +58,12 @@ describe("Teste  likeDislikePost", () => {
   test("deve diparar erro payload não autorizado", async () => {
     expect.assertions(2);
     try {
-      const input = LikeDislikePSchema.parse({
+      const input = LikeDislikeCommentPSchema.parse({
         token: "token-mock",
         like: false,
-        postId: "id-mock-post2",
+        commentId: "id-mock-comment2",
       });
-      const output = await postBusiness.likeDislikePost(input);
+      const output = await commentsBusiness.likeDislikeComment(input);
     } catch (error) {
       if (error instanceof UnauthorizedError) {
         expect(error.statusCode).toBe(401);
@@ -78,12 +74,12 @@ describe("Teste  likeDislikePost", () => {
   test("deve disparar erro de id não encontrado", async () => {
     expect.assertions(2);
     try {
-      const input = LikeDislikePSchema.parse({
+      const input = LikeDislikeCommentPSchema.parse({
         token: "token-mock-normal",
         like: false,
-        postId: "id-mock",
+        commentId: "id-mock",
       });
-      await postBusiness.likeDislikePost(input);
+      await commentsBusiness.likeDislikeComment(input);
     } catch (error) {
       if (error instanceof NotFoundError) {
         expect(error.statusCode).toBe(404);
@@ -92,16 +88,18 @@ describe("Teste  likeDislikePost", () => {
     }
   });
 
-  test("deve gerar like no post", async () => {
-    const input = LikeDislikePSchema.parse({
+  test("deve gerar like no comentário", async () => {
+    const input = LikeDislikeCommentPSchema.parse({
+      commentId:"id-mock-comment1",
       token: "token-mock-normal",
-      like: true,
-      postId: "id-mock-post2",
+      like: false,
     });
 
-    await postBusiness.likeDislikePost(input);
-    
-    const output = await postBusiness.getPostsWithCreatorName(input);
-    
+    await commentsBusiness.likeDislikeComment(input);
+
+    const output = await commentsBusiness.getAllCommentByPostId({
+      token: "token-mock-normal",
+      id_post: "id-mock-post2",
+    });
   });
 });
