@@ -28,7 +28,8 @@ Projeto criado utilizando Typescript e Programação orientada á objetos, dando
 https://dbdiagram.io/d/6492227702bd1c4a5eccfff1
 
 # Testes 
-![teste-coverage](https://github.com/DavidAlves28/Labedit_back-end/assets/107942209/7a1740e0-49ef-4552-8c8e-c83038e0c016)
+![teste labeddit](https://github.com/DavidAlves28/Labedit_back-end/assets/107942209/bf48a97d-4e2e-4735-a9df-f70b285cce40)
+
 
 ### Deploy = https://labeddit-backend-pky9.onrender.com
 ## Documentação Postman 
