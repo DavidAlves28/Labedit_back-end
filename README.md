@@ -22,7 +22,8 @@ Projeto criado utilizando Typescript e Programação orientada á objetos, dando
 - Postman
 
 # Banco de dados
-![Labedit](https://github.com/DavidAlves28/Labedit_back-end/assets/107942209/27ca68a4-f6f9-45b9-872c-6ef862deb5c4)
+![models](https://github.com/DavidAlves28/Labedit_back-end/assets/107942209/14194114-acd1-4e3b-84e0-2db8f59a3d24)
+
 
 
 https://dbdiagram.io/d/6492227702bd1c4a5eccfff1
